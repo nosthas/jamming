@@ -23,7 +23,20 @@ class App extends Component {
         name: 'Blood is on the road',
         artist: 'Emilio Nosthas',
         album: 'Life and More'
-      }]
+      }],
+      playlistName: "Mi Lista",
+      playlistTracks: [
+        {
+          name: 'Test',
+          artist: 'Test',
+          album: 'Test'
+        },
+        {
+          name: 'Test',
+          artist: 'Test',
+          album: 'Test'
+        }
+      ]
     }
   }
 
@@ -38,7 +51,7 @@ class App extends Component {
             <SearchBar />
             <div className="App-playlist">
               <SearchResults searchResults={this.state.searchResults}/>
-              <Playlist />
+              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
             </div>
           </div>
         </div>
