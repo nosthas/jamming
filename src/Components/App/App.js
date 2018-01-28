@@ -8,15 +8,29 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [{
-        name: '',
-        artist: '',
-        album: ''
+      searchResults: [
+      { id: 1,
+        name: 'Blood is on the road',
+        artist: 'Emilio Nosthas',
+        album: 'Life and More'
+      },
+      { id: 2,
+        name: 'Blood is on the road',
+        artist: 'Emilio Nosthas',
+        album: 'Life and More'
+      },
+      { id: 3,
+        name: 'Blood is on the road',
+        artist: 'Emilio Nosthas',
+        album: 'Life and More'
       }]
     }
   }
 
   render() {
+
+
+
     return (
         <div>
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
