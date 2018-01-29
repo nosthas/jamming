@@ -3,7 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
-// import Spotify from '../../util/Spotify';
+import Spotify from '../../util/Spotify';
 
 class App extends Component {
 
@@ -73,15 +73,16 @@ class App extends Component {
     alert(trackURIs);
   }
 
-  search(q){
-    alert(q);
-    //console.log(q);
+  async search(q){
+    Spotify.search(q);
   }
 
   render() {
     return (
         <div>
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
+          <div onClick={Spotify.getAccessToken}>GET TOKEN</div>
+          <div onClick={this.search}>SEARCH</div>
           <div className="App">
             <SearchBar onSearch={this.search}/>
             <div className="App-playlist">
