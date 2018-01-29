@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify'
 
 class App extends Component {
 
@@ -77,10 +78,15 @@ class App extends Component {
     //console.log(q);
   }
 
+  spotify(){
+    Spotify.getAccessToken();
+  }
+
   render() {
     return (
         <div>
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
+          <div onClick={this.spotify}>TEST</div>
           <div className="App">
             <SearchBar onSearch={this.search}/>
             <div className="App-playlist">
