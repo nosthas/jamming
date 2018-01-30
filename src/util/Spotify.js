@@ -40,6 +40,8 @@ let Spotify = {
 // Spotify Search Request
   search(term){
 
+    let access_token = this.getAccessToken();
+
     const header = {
       headers: { Authorization: `Bearer ${accessToken}`}
     }
@@ -67,11 +69,20 @@ let Spotify = {
     });
   },
 
+  //Spotify Save Playlist
   savePlaylist(playlistName, playlistTracks) {
+
+    // Check if both partameters exists
+    if (!playlistName || !playlistTracks) {
+      return;
+    }
+
+    // Get Authorization
     let access_token = this.getAccessToken();
     const headers = { Authorization: `Bearer ${accessToken}` };
     let userId;
 
+    // Chained Spotify Requests
     return fetch('https://api.spotify.com/v1/me', {headers: headers}
         ).then(response => response.json()
         ).then(jsonResponse => {
@@ -93,50 +104,6 @@ let Spotify = {
           });
         });
   },
-
-  //Spotify Save Playlist
-  savePlaylist2(playlistName, playlistTracks) {
-
-    if (!playlistName || !playlistTracks) {
-      return;
-    }
-
-    let access_token = accessToken;
-    const header = { headers: { Authorization: `Bearer ${accessToken}`}};
-    let user_id;
-
-    // Get User ID from Spotify
-    let spotifyUser = fetch('https://api.spotify.com/v1/me', header)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(' User ID Request Failed!');
-    }, networkError => { console.log(networkError.message)})
-    .then(jsonResponse => {
-      user_id = jsonResponse.id;
-      return user_id;
-    })
-
-    // Create a Playlist
-    let spotifyPlaylist = spotifyUser.then(user => {
-
-        return fetch('https://api.spotify.com/v1/users/'+user+'/playlists', {
-          headers: {  Authorization: `Bearer ${accessToken}`},
-          method:'POST',
-          body: JSON.stringify({name:playlistName})});
-    }).then(response => {
-      if (response.ok ) {
-        return response.json();
-      }
-      console.log(response);
-      throw new Error(' Playlist Create Request Failed!');
-    })
-    .then(jsonResponse => {
-      console.log(jsonResponse);
-    })
-  }
-
 };
 
 export default Spotify;
