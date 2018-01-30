@@ -38,13 +38,13 @@ let Spotify = {
   },
 
 // Spotify Search Request
-  search: function(term){
+  search(term){
 
     const header = {
       headers: { Authorization: `Bearer ${accessToken}`}
     }
 
-    fetch( 'https://api.spotify.com/v1/search?type=track&q="' + term + '"', header )
+    return fetch( 'https://api.spotify.com/v1/search?type=track&q="' + term + '"', header )
     .then( response => {
       if ( response.ok) {
         return response.json();
@@ -52,15 +52,18 @@ let Spotify = {
       throw new Error('Request Failed!');
     }, networkError => { console.log(networkError.message) })
     .then(jsonResponse => {
-      let result =  jsonResponse.tracks.items.map( track => (
-            { id: track.id,
-              name: track.name,
-              artist: track.artists[0].name,
-              album: track.album.name,
-              uri: track.uri }
-      ));
-      //console.log(result)
-      return result;
+      if ( jsonResponse.tracks ) {
+        let result =  jsonResponse.tracks.items.map( track => (
+              { id: track.id,
+                name: track.name,
+                artist: track.artists[0].name,
+                album: track.album.name,
+                uri: track.uri }
+        ));
+        return result;
+      } else {
+        return [];
+      }
     });
   }
 

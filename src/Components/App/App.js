@@ -68,13 +68,15 @@ class App extends Component {
     this.setState({ playlistName: name });
   }
 
-  savePlaylist(){
+  savePlaylist() {
     const trackURIs = this.state.playlistTracks.map( track => track.uri );
     alert(trackURIs);
   }
 
-  search(q){
-    console.log(Spotify.search('joe satriani'));
+  search(term) {
+    //Spotify.search(term).then(results => console.log(results));
+    Spotify.search(term).then(results => this.setState({ searchResults: results }));
+
   }
 
   render() {
@@ -97,6 +99,7 @@ class App extends Component {
         </div>
     );
   }
+
 }
 
 export default App;
