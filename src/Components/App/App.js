@@ -10,39 +10,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [
-      { id: 1,
-        name: 'Blood is on the road',
-        artist: 'Emilio Nosthas',
-        album: 'Life and More'
-      },
-      { id: 2,
-        name: 'Blood is on the road',
-        artist: 'Emilio Nosthas',
-        album: 'Life and More'
-      },
-      { id: 3,
-        name: 'Blood is on the road',
-        artist: 'Emilio Nosthas',
-        album: 'Life and More'
-      }],
+      searchResults: [],
       playlistName: "Mi Lista",
-      playlistTracks: [
-        {
-          id: 10,
-          name: 'Test',
-          artist: 'Test',
-          album: 'Test',
-          uri: 'www.something.com'
-        },
-        {
-          id: 12,
-          name: 'Test',
-          artist: 'Test',
-          album: 'Test',
-          uri: 'www.something.com'
-        }
-      ]
+      playlistTracks: []
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -70,8 +40,8 @@ class App extends Component {
 
   savePlaylist() {
     const trackURIs = this.state.playlistTracks.map( track => track.uri );
-    //alert(trackURIs);
-    Spotify.savePlaylist("test2", []);
+    //console.log(trackURIs);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
   }
 
   search(term) {
@@ -84,9 +54,6 @@ class App extends Component {
     return (
         <div>
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
-          <div onClick={Spotify.getAccessToken}>GET TOKEN</div>
-          <div onClick={this.search}>SEARCH</div>
-          <div onClick={this.savePlaylist}>SAVE</div>
           <div className="App">
             <SearchBar onSearch={this.search}/>
             <div className="App-playlist">
