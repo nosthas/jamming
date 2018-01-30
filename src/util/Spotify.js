@@ -87,7 +87,7 @@ let Spotify = {
     return fetch('https://api.spotify.com/v1/me', {headers: headers}
         ).then(response => response.json()
         ).then(jsonResponse => {
-          console.log("First FETCH: " + jsonResponse);
+          console.log(jsonResponse); // CHECK FIRST REQUEST
           userId = jsonResponse.id;
           return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
             headers: headers,
@@ -95,7 +95,7 @@ let Spotify = {
             body: JSON.stringify({name: playlistName})
           }).then(response => response.json()
         ).then(jsonResponse => {
-            console.log("Second FETCH: " + jsonResponse);
+            console.log(jsonResponse); // CHECK SECOND REQUEST
             const playlistId = jsonResponse.id;
             return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
               headers: headers,
