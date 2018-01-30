@@ -93,13 +93,15 @@ let Spotify = {
 
     // Create a Playlist
     let spotifyPlaylist = spotifyUser.then(user => {
-        //alert(user);
+        
         return fetch('https://api.spotify.com/v1/users/'+user+'/playlists', {
           headers: {  'Authorization': `Bearer ${accessToken}`,
-                      'Content-Type': 'application/json' },
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'},
           scope: 'playlist-modify-private',
           method:'POST',
-          body: JSON.stringify({name:playlistName})});
+          body: JSON.stringify({name:playlistName, description:"some",public:false})});
+
     }).then(response => {
       if (response.ok ) {
         return response.json();
