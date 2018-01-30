@@ -73,7 +73,7 @@ class App extends Component {
     alert(trackURIs);
   }
 
-  async search(q){
+  search(q){
     console.log(Spotify.search('joe satriani'));
   }
 

@@ -28,6 +28,7 @@ let Spotify = {
 
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
+      return accessToken;
 
     } else {
       // No params on URL, redirect to Spotify
@@ -51,17 +52,15 @@ let Spotify = {
       throw new Error('Request Failed!');
     }, networkError => { console.log(networkError.message) })
     .then(jsonResponse => {
-
-      let result = jsonResponse.tracks.items.map( track => {
-              return {  id: track.id,
-                        name: track.name,
-                        artist: track.artists[0].name,
-                        album: track.album.name,
-                        uri: track.uri
-                      }
-              });
+      let result =  jsonResponse.tracks.items.map( track => (
+            { id: track.id,
+              name: track.name,
+              artist: track.artists[0].name,
+              album: track.album.name,
+              uri: track.uri }
+      ));
+      //console.log(result)
       return result;
-
     });
   }
 
