@@ -70,7 +70,8 @@ class App extends Component {
 
   savePlaylist() {
     const trackURIs = this.state.playlistTracks.map( track => track.uri );
-    alert(trackURIs);
+    //alert(trackURIs);
+    Spotify.savePlaylist("test", []);
   }
 
   search(term) {
@@ -85,6 +86,7 @@ class App extends Component {
           <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div onClick={Spotify.getAccessToken}>GET TOKEN</div>
           <div onClick={this.search}>SEARCH</div>
+          <div onClick={this.savePlaylist}>SAVE</div>
           <div className="App">
             <SearchBar onSearch={this.search}/>
             <div className="App-playlist">

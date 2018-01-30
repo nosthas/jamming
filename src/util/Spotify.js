@@ -49,7 +49,7 @@ let Spotify = {
       if ( response.ok) {
         return response.json();
       }
-      throw new Error('Request Failed!');
+      throw new Error('Search Request Failed!');
     }, networkError => { console.log(networkError.message) })
     .then(jsonResponse => {
       if ( jsonResponse.tracks ) {
@@ -65,6 +65,51 @@ let Spotify = {
         return [];
       }
     });
+  },
+
+  //Spotify Save Playlist
+  savePlaylist(playlistName, playlistTracks) {
+
+    if (!playlistName || !playlistTracks) {
+      return;
+    }
+
+    let access_token = accessToken;
+    const header = { headers: { Authorization: `Bearer ${accessToken}`}};
+    let user_id;
+
+    // Get User ID from Spotify
+    let spotifyUser = fetch('https://api.spotify.com/v1/me', header)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(' User ID Request Failed!');
+    }, networkError => { console.log(networkError.message)})
+    .then(jsonResponse => {
+      user_id = jsonResponse.id;
+      return user_id;
+    })
+
+    // Create a Playlist
+    let spotifyPlaylist = spotifyUser.then(user => {
+        //alert(user);
+        return fetch('https://api.spotify.com/v1/users/'+user+'/playlists', {
+          headers: {  'Authorization': `Bearer ${accessToken}`,
+                      'Content-Type': 'application/json' },
+          scope: 'playlist-modify-private',
+          method:'POST',
+          body: JSON.stringify({name:playlistName})});
+    }).then(response => {
+      if (response.ok ) {
+        return response.json();
+      }
+      console.log(response);
+      throw new Error(' Playlist Create Request Failed!');
+    })
+    .then(jsonResponse => {
+      console.log(jsonResponse);
+    })
   }
 
 };
