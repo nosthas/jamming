@@ -74,7 +74,7 @@ class App extends Component {
   }
 
   async search(q){
-    Spotify.search(q);
+    console.log(Spotify.search('joe satriani'));
   }
 
   render() {

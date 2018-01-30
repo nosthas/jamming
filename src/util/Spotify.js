@@ -51,6 +51,7 @@ let Spotify = {
       throw new Error('Request Failed!');
     }, networkError => { console.log(networkError.message) })
     .then(jsonResponse => {
+
       let result = jsonResponse.tracks.items.map( track => {
               return {  id: track.id,
                         name: track.name,
@@ -59,10 +60,11 @@ let Spotify = {
                         uri: track.uri
                       }
               });
-      console.log("INSIDE: " + result);
       return result;
+
     });
   }
+
 };
 
 export default Spotify;
