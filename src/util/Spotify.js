@@ -1,7 +1,7 @@
+// Spotify Utility Module. 
 
 let accessToken = '';
 let expiresIn = '';
-
 let Spotify = {
 
 // Spotify Access Token
