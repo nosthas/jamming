@@ -11,13 +11,14 @@ let Spotify = {
     const client_id = '?client_id=cc05bf86a88943efb28413f87d317b94';
     const redirect_uri = '&redirect_uri=http://localhost:3000';
     const response_type = '&response_type=token';
+    const scope = '&scope=playlist-modify';
 
     const access_token = window.location.href.match(/access_token=([^&]*)/);
     const expires_in = window.location.href.match(/expires_in=([^&]*)/);
 
     if (accessToken !== '') {
       // Check if there is already a token
-      console.log("Already: " + accessToken);
+      //console.log("Already: " + accessToken);
       return accessToken;
 
     } else if ( access_token && expires_in ) {
@@ -32,7 +33,7 @@ let Spotify = {
 
     } else {
       // No params on URL, redirect to Spotify
-      window.location.href = spotify + client_id + redirect_uri + response_type;
+      window.location.href = spotify + client_id + redirect_uri + response_type + scope;
     }
 
   },
@@ -87,7 +88,7 @@ let Spotify = {
     return fetch('https://api.spotify.com/v1/me', {headers: headers}
         ).then(response => response.json()
         ).then(jsonResponse => {
-          console.log(jsonResponse); // CHECK FIRST REQUEST
+          //console.log(jsonResponse); // CHECK FIRST REQUEST
           userId = jsonResponse.id;
           return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
             headers: headers,
@@ -95,7 +96,7 @@ let Spotify = {
             body: JSON.stringify({name: playlistName})
           }).then(response => response.json()
         ).then(jsonResponse => {
-            console.log(jsonResponse); // CHECK SECOND REQUEST
+            //console.log(jsonResponse); // CHECK SECOND REQUEST
             const playlistId = jsonResponse.id;
             return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
               headers: headers,
