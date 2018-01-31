@@ -1,4 +1,4 @@
-// Jammming Main Component
+// Jammming Main React Component
 
 import React, { Component } from 'react';
 import './App.css';
